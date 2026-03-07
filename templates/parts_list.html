@@ -11,8 +11,8 @@
         <div class="header">
             <h1>Parts Manager</h1>
             <div class="user-info">
-                Welcome, {{ session.username }} {% if is_admin %}(Admin){% else %}(User){% endif %} |
-                <a href="/logout">Logout</a>
+                Logged In: {{ session.username }} {% if is_admin %}(Admin){% else %}(User){% endif %}
+                <a href="/logout" class="btn btn-secondary">Logout</a>
             </div>
         </div>
 
