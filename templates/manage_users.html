@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Users - PartsManager</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Manage Users</h1>
+        <a href="/parts/" class="btn btn-secondary">Back to Parts List</a>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="message message-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <h2>Manage Users</h2>
+      {% if users %}
+      <div class="parts-list">
+        {% for user in users %}
+        <div class="part-card">
+          <div class="part-header">
+            <div class="part-info">
+              <h3>{{ user.Username }}</h3>
+              <p>Role: {{ user.role.RoleDesc }}</p>
+            </div>
+            <div class="part-actions">
+              <form
+                method="POST"
+                action="/users/delete/{{ user.Username }}"
+                style="display: inline"
+              >
+                <button
+                  type="submit"
+                  class="btn btn-small btn-delete"
+                  onclick="return confirm('Are you sure you want to delete user {{ user.Username }}?')"
+                >
+                  Delete User
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="prefixes">
+            <h4>Update Password</h4>
+            <form
+              method="POST"
+              action="/users/update_password/{{ user.Username }}"
+              style="display: flex; gap: 10px; align-items: flex-end"
+            >
+              <div class="form-group" style="margin-bottom: 0; flex: 1">
+                <input
+                  type="password"
+                  name="new_password"
+                  placeholder="New password"
+                  required
+                  style="
+                    width: 100%;
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 14px;
+                  "
+                />
+              </div>
+              <button type="submit" class="btn btn-small btn-secondary">
+                Update Password
+              </button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="no-data">No users found.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
