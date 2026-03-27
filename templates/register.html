@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register - PartsManager</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Register New User</h1>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="message message-{{ category }}">{{ message }}</div>
+      {% endfor %}
+
+      <form method="POST" action="/register" class="form">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text" id="username" name="username"/>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+            <input type="password" id="password" name="password"/>
+        </div>
+
+        <div class="form-group">
+          <label for="role_id">Role:</label>
+          <select id="role_id" name="role_id" required>
+            {% for role in roles %}
+            <option value="{{ role.ID }}">{{ role.RoleDesc }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+
+      <p class="text-center">
+         Already registered?
+         <br>
+         <br>
+         <a href="/login" class="btn">Login here</a>
+      </p>
+    </div>
+  </body>
+</html>
